@@ -1,38 +1,49 @@
-Role Name
+openssl_make_install
 =========
 
-A brief description of the role goes here.
+Role to install OpenSSL with make.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+The supported Ansible version are as follows:
+
+- 2.10
+
+The OpenSSL versions that can be installed with this Role are as follows:
+
+- 1.1.1
+
+The supported platforms are as follows:
+
+- CentOS 7
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+See [defaults/main.yml](./defaults/main.yml).
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Nothing.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+An example of using this role is as follows:
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+        - role: tatsuto_iijima.openssl_make_install
+          tiomi_openssl_install_version: 1.1.1h
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+https://github.com/tatsuto-iijima

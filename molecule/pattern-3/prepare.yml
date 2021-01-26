@@ -1,0 +1,10 @@
+---
+- name: Prepare
+  hosts: all
+  roles:
+    - role: openssl_make_install
+  tasks:
+    - name: "Delete libcrypto"
+      file:
+        path: "{{ tiomi_openssl_libcrypto }}"
+        state: absent

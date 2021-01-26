@@ -1,2 +1,41 @@
 ---
-# defaults file for ansible-role-openssl-make-install
+# Packages required to config and make OpenSSL
+tiomi_required_packages:
+  - gcc
+  - make
+
+# OpenSSL install version
+tiomi_openssl_install_version: 1.1.1i
+
+# OpenSSL source download URL
+tiomi_openssl_src_url: "https://www.openssl.org/source/openssl-{{ tiomi_openssl_install_version }}.tar.gz"
+
+# OpenSSL download directory
+tiomi_openssl_download_dir: /usr/local/src
+
+# OpenSSL source directory
+tiomi_openssl_src_dir: "{{ tiomi_openssl_download_dir }}/openssl-{{ tiomi_openssl_install_version }}"
+
+# Where to install OpenSSL
+tiomi_openssl_prefix: /usr/local/openssl
+
+# OpenSSL library directory
+tiomi_openssl_lib: "{{ tiomi_openssl_prefix }}/lib"
+
+# OpenSSL libssl path
+tiomi_openssl_libssl: "{{ tiomi_openssl_lib }}/libssl.so.1.1"
+
+# OpenSSL libcrypto path
+tiomi_openssl_libcrypto: "{{ tiomi_openssl_lib }}/libcrypto.so.1.1"
+
+# OpenSSL cmd path
+tiomi_openssl_cmd: "{{ tiomi_openssl_prefix }}/bin/openssl"
+
+# OpenSSL config option
+tiomi_openssl_config_option:
+  - -fPIC
+  - shared
+  - "--prefix={{ tiomi_openssl_prefix }}"
+
+# Configuration file name of the library to be added
+tiomi_ld_so_conf: openssl.conf
