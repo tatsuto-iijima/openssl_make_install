@@ -7,6 +7,7 @@ services:
   - docker
 branches:
   only:
+    - main
     - develop
 install:
   - pip install -r requirements.txt

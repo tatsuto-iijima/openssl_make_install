@@ -1,7 +1,9 @@
 openssl_make_install
 =========
 
-Role to install OpenSSL with make.
+[![Build Status](https://www.travis-ci.com/tatsuto-iijima/openssl_make_install.svg?branch=main)](https://www.travis-ci.com/tatsuto-iijima/openssl_make_install)
+
+Ansible Role to install OpenSSL with make.
 
 Requirements
 ------------
