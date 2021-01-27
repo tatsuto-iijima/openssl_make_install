@@ -36,6 +36,8 @@ tiomi_openssl_config_option:
   - -fPIC
   - shared
   - "--prefix={{ tiomi_openssl_prefix }}"
+# When configuring without options, write as follows (Don't forget to rewrite tiomi_openssl_prefix)
+# tiomi_openssl_config_option: []
 
 # Configuration file name of the library to be added
 tiomi_ld_so_conf: openssl.conf
