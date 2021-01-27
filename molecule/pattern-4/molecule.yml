@@ -4,7 +4,7 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: instance
+  - name: tiomi-pattern4-centos7
     image: docker.io/pycontribs/centos:7
     pre_build_image: true
 provisioner:
