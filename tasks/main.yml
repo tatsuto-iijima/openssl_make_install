@@ -16,17 +16,17 @@
 
 - name: "Check if openssl is installed"
   stat: path="{{ tiomi_openssl_cmd }}"
-  register: omi_reg_openssl_exist
+  register: tiomi_reg_openssl_cmd
 
 - name: "Judge OpenSSL is installed"
   set_fact:
     tiomi_reg_openssl_installed: true
-  when: tiomi_reg_libssl.stat.exists and tiomi_reg_libcrypto.stat.exists and omi_reg_openssl_exist.stat.exists
+  when: tiomi_reg_libssl.stat.exists and tiomi_reg_libcrypto.stat.exists and tiomi_reg_openssl_cmd.stat.exists
 
 - name: "Judge OpenSSL is not installed"
   set_fact:
     tiomi_reg_openssl_installed: false
-  when: not tiomi_reg_libssl.stat.exists or not tiomi_reg_libcrypto.stat.exists or not omi_reg_openssl_exist.stat.exists
+  when: not tiomi_reg_libssl.stat.exists or not tiomi_reg_libcrypto.stat.exists or not tiomi_reg_openssl_cmd.stat.exists
 
 - name: "Result of whether OpenSSL is installed"
   debug: msg="OpenSSL not installed."
