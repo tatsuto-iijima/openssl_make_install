@@ -14,10 +14,11 @@ install:
   - pip install -r requirements.txt
 script:
   - molecule test
-  - molecule test --scenario-name pattern-1
-  - molecule test --scenario-name pattern-2
-  - molecule test --scenario-name pattern-3
-  - molecule test --scenario-name pattern-4
+  - molecule test --scenario-name pattern1
+  - molecule test --scenario-name pattern2
+  - molecule test --scenario-name pattern3
+  - molecule test --scenario-name pattern4
+  - molecule test --scenario-name pattern5
 notifications:
   email: false
   slack:

@@ -1,45 +1,45 @@
 ---
-# Install required packages
-- name: Install required packages
+# Common
+- name: "<Common> Install required packages"
   yum:
     name: "{{ tiomi_required_packages }}"
     state: present
 
-# Install OpenSSL
-- name: "Check if libssl is installed"
+# OpenSSL
+- name: "<OpenSSL> Check if libssl is installed"
   stat: path="{{ tiomi_openssl_libssl }}"
   register: tiomi_reg_libssl
 
-- name: "Check if libcrypto is installed"
+- name: "<OpenSSL> Check if libcrypto is installed"
   stat: path="{{ tiomi_openssl_libcrypto }}"
   register: tiomi_reg_libcrypto
 
-- name: "Check if openssl is installed"
+- name: "<OpenSSL> Check if openssl command is installed"
   stat: path="{{ tiomi_openssl_cmd }}"
   register: tiomi_reg_openssl_cmd
 
-- name: "Judge OpenSSL is installed"
+- name: "<OpenSSL> Judgment installed"
   set_fact:
     tiomi_reg_openssl_installed: true
   when: tiomi_reg_libssl.stat.exists and tiomi_reg_libcrypto.stat.exists and tiomi_reg_openssl_cmd.stat.exists
 
-- name: "Judge OpenSSL is not installed"
+- name: "<OpenSSL> Judgment not installed"
   set_fact:
     tiomi_reg_openssl_installed: false
   when: not tiomi_reg_libssl.stat.exists or not tiomi_reg_libcrypto.stat.exists or not tiomi_reg_openssl_cmd.stat.exists
 
-- name: "Result of whether OpenSSL is installed"
+- name: "<OpenSSL> Judgment result of whether it is installed"
   debug: msg="OpenSSL not installed."
   when: not tiomi_reg_openssl_installed
 
-- name: "Check OpenSSL version"
+- name: "<OpenSSL> Check current version"
   command: "{{ tiomi_openssl_cmd }} version"
   register: tiomi_reg_openssl_current_version
   changed_when: false
   when: tiomi_reg_openssl_installed
 
 - block:
-    - name: "Download OpenSSL source"
+    - name: "<OpenSSL> Download source"
       unarchive:
         src: "{{ tiomi_openssl_src_url }}"
         dest: "{{ tiomi_openssl_download_dir }}"
@@ -47,30 +47,30 @@
         owner: root
         group: root
 
-    - name: "Configure OpenSSL"
+    - name: "<OpenSSL> Execute ./config"
       command:
         cmd: "./config{% if tiomi_openssl_config_option %} {{ tiomi_openssl_config_option | join(' ') }}{% endif %}"
         chdir: "{{ tiomi_openssl_src_dir }}"
 
-    - name: "Make all OpenSSL"
+    - name: "<OpenSSL> Execute make"
       community.general.make:
         chdir: "{{ tiomi_openssl_src_dir }}"
         target: all
 
-    - name: "Make install OpenSSL"
+    - name: "<OpenSSL> Execute make install"
       community.general.make:
         chdir: "{{ tiomi_openssl_src_dir }}"
         target: install
 
-    - name: "Add OpenSSL library"
+    - name: "<OpenSSL> Add library path"
       template:
-        src: "{{ tiomi_ld_so_conf }}.j2"
+        src: "{{ tiomi_ld_so_conf_template }}"
         dest: "/etc/ld.so.conf.d/{{ tiomi_ld_so_conf }}"
         owner: root
         group: root
         mode: '0644'
 
-    - name: "Excute ldconfig"
+    - name: "<OpenSSL> Excute ldconfig"
       command:
         cmd: "ldconfig"
   when: not tiomi_reg_openssl_installed or (tiomi_reg_openssl_installed and tiomi_openssl_install_version not in tiomi_reg_openssl_current_version.stdout)

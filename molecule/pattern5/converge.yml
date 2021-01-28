@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  vars_files:
+    - vars.yml
+  roles:
+    - role: openssl_make_install
+      tiomi_openssl_prefix: "{{ tiomi_scenario_openssl_prefix }}"
+      tiomi_openssl_config_option:
+        - -fPIC
+        - shared
+        - "--prefix={{ tiomi_openssl_prefix }}"

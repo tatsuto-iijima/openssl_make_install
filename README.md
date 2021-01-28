@@ -24,6 +24,7 @@ Role Variables
 --------------
 
 See [defaults/main.yml](./defaults/main.yml).
+See [vars/main.yml](./vars/main.yml).
 
 Dependencies
 ------------
@@ -39,6 +40,11 @@ An example of using this role is as follows:
       roles:
         - role: tatsuto_iijima.openssl_make_install
           tiomi_openssl_install_version: 1.1.1h
+          tiomi_openssl_prefix: /usr/local/openssl
+          tiomi_openssl_config_option:
+            - -fPIC
+            - shared
+            - "--prefix={{ tiomi_openssl_prefix }}"
 
 License
 -------

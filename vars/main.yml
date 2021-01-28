@@ -1,0 +1,22 @@
+# Packages required to config and make OpenSSL
+tiomi_required_packages:
+  - gcc
+  - make
+
+# OpenSSL source directory
+tiomi_openssl_src_dir: "{{ tiomi_openssl_download_dir }}/openssl-{{ tiomi_openssl_install_version }}"
+
+# OpenSSL library directory
+tiomi_openssl_lib: "{{ tiomi_openssl_prefix }}{% if tiomi_openssl_prefix == '/usr/local' %}/lib64{% else %}/lib{% endif %}"
+
+# OpenSSL libssl path
+tiomi_openssl_libssl: "{{ tiomi_openssl_lib }}/libssl.so.1.1"
+
+# OpenSSL libcrypto path
+tiomi_openssl_libcrypto: "{{ tiomi_openssl_lib }}/libcrypto.so.1.1"
+
+# OpenSSL cmd path
+tiomi_openssl_cmd: "{{ tiomi_openssl_prefix }}/bin/openssl"
+
+# Configuration file template name of the library to be added
+tiomi_ld_so_conf_template: openssl_make_install.conf.j2
